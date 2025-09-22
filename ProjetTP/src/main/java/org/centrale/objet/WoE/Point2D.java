@@ -6,10 +6,9 @@ package org.centrale.objet.WoE;
 
 /**
  *
- * @author Oussama
+ * @author user
  */
 public class Point2D {
-    
     int x;
     int y;
     

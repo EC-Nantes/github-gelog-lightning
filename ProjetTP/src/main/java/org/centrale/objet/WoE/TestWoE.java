@@ -6,7 +6,7 @@ package org.centrale.objet.WoE;
 
 /**
  *
- * @author Oussama
+ * @author user
  */
 public class TestWoE {
     public static void main(String[] args) {
@@ -51,3 +51,4 @@ public class TestWoE {
 
     }
 }
+ 
