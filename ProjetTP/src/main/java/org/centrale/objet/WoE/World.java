@@ -15,11 +15,8 @@ public class World {
     
     public World(){
      this.robin= new Archer();
-      this.peon= new Archer();
-       this.bugs= new Archer();
-    }
-    public void CreeMondeAlea(){
-        
+     this.peon= new Paysan();
+     this.bugs= new Lapin();
     }
 }
 
