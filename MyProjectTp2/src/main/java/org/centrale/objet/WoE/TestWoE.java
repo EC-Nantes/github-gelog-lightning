@@ -10,12 +10,52 @@ package org.centrale.objet.WoE;
  */
 public class TestWoE {
     public static void main (String[]args){
-        Point2D p1=new Point2D(3,4);
-        Point2D p2=new Point2D(3,4);
-        p1.setPosition(2,5);
-        p1.translate(1,-1);
-        p1.affiche();
-        float d=p1.distance(p2);
-        System.out.println("Distance entre p1 et p2 = " + d);
+       
+        
+        World worldtest = new World();
+       
+        worldtest.robin.affiche();
+        worldtest.peon.affiche();
+        worldtest.bugs.affiche();
+        System.out.println("affichage de wolfie");
+        worldtest.wolfie.affiche();
+        
+        
+        worldtest.peon.deplace();
+        worldtest.peon.affiche();
+        worldtest.bugs.deplace();
+        worldtest.bugs.affiche();
+        System.out.println("voila deplacement de robin");
+        worldtest.robin.deplace();
+        worldtest.robin.affiche();
+        System.out.println("voila deplacement de guillaumeT");
+        worldtest.guillaumeT.deplace();
+        worldtest.guillaumeT.affiche();
+        
+        
+        /*worldtest.robin.deplace();
+        worldtest.peon.deplace();
+        worldtest.bugs.deplace();
+        
+        
+        
+        System.out.println("apres");
+        
+        worldtest.robin.affiche();
+        worldtest.peon.affiche();
+        worldtest.bugs.affiche();
+        
+        System.out.println( "copie objet");
+         worldtest.robin.affiche();
+        worldtest.guillaumeT.affiche();
+        
+        worldtest.robin.deplace();
+        worldtest.guillaumeT.deplace();
+        
+        worldtest.guillaumeT = new Archer (worldtest.robin);
+        worldtest.robin.deplace(); 
+        worldtest.robin.affiche();
+        
+        worldtest.guillaumeT.affiche();*/
     }
 }

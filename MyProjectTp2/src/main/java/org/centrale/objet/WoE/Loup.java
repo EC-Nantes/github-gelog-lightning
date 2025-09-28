@@ -8,37 +8,17 @@ package org.centrale.objet.WoE;
  *
  * @author user
  */
-public class Lapin extends Monstre{
-    public Lapin(){
+public class Loup extends Monstre {
+    
+    public Loup() {
         super();
     }
-    public Lapin(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+
+    public Loup(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p) {
         super(pV, dA, pPar, paAtt, paPar, p);
     }
-    public Lapin(Lapin l){
+
+    public Loup(Loup l) {
         super(l);
-    }  
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
