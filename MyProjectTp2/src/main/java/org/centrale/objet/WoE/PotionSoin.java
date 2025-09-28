@@ -13,9 +13,18 @@ package org.centrale.objet.WoE;
 public class PotionSoin extends Objet{
     private int ptVieRendus; // nb de PtVie rendus
     
-    public PotionSoin(int ptVieRendusin) {
-        super()
+    public PotionSoin(){
+        super();
+        this.ptVieRendus=0;
+    }
+    
+    public PotionSoin(String nom, Point2D position,int ptVieRendusin) {
+        super(nom, position);
         this.ptVieRendus = ptVieRendus;
+    }
+    public PotionSoin(PotionSoin pS){
+        super(pS);
+        this.ptVieRendus=pS.ptVieRendus;
     }
 
     public int getSoin() {
@@ -23,8 +32,6 @@ public class PotionSoin extends Objet{
     }
     
     public void utiliserObjet(Creature c){
-        c.setPtVie(getPtVie()+ptVieRendus);
+        c.setPtVie(c.getPtVie()+ptVieRendus);
     }
-    
-    
 }

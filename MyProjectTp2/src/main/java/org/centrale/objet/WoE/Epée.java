@@ -15,14 +15,17 @@ public class Epée extends Objet {
     private int bonusAtt;
     
     public Epée(){
+        super();
         this.bonusAtt=0;   
                 }
 
-    public Epée(int bonusAtt) {
+    public Epée(String nom, Point2D position, int bonusAtt) {
+        super(nom, position);
         this.bonusAtt = bonusAtt;
     }
     
     public Epée(Epée e) {
+        super(e);
         this.bonusAtt = e.bonusAtt;
     }
     
@@ -32,5 +35,9 @@ public class Epée extends Objet {
     
     public int getBonusAtt() {
         return bonusAtt;
+    }
+    
+    public void utiliserObjet(Creature c){
+        c.setDegAtt(c.getDegAtt()+bonusAtt);
     }
 }

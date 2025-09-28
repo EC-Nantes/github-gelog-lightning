@@ -16,7 +16,7 @@ public class Creature {
     private int pageAtt;
     private int pagePar;
     private Point2D pos;
-}
+
 
 public Creature(){
     this.ptVie=0;
@@ -123,4 +123,6 @@ public int getPtVie() {
     public void affiche(){
         System.out.println(this);
     }
+
+
     
