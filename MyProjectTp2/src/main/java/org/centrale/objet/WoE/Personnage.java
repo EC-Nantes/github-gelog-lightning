@@ -56,10 +56,17 @@ public Personnage (Personnage perso){
     public void affiche(){
         System.out.println(this);
     }
+    
+    public void deplace(World monde) {
+        super.deplace(monde);
+        monde.deplaceCreature(this);
+    }
 }
 
 
 
+     
+       
 
 
 

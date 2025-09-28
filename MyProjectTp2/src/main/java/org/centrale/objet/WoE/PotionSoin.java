@@ -34,4 +34,9 @@ public class PotionSoin extends Objet{
     public void utiliserObjet(Creature c){
         c.setPtVie(c.getPtVie()+ptVieRendus);
     }
+
+    public void setPtVieRendus(int ptVieRendus) {
+        this.ptVieRendus = ptVieRendus;
+    }
+    
 }

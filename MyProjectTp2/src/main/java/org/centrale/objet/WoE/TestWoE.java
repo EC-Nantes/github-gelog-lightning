@@ -13,8 +13,12 @@ public class TestWoE {
        
         
         World worldtest = new World();
-       
-        worldtest.robin.affiche();
+        worldtest.tourDeJeu();
+        worldtest.affiche();
+        System.out.println("vraiment ouf");
+         worldtest.tourDeJeu();
+        worldtest.affiche();
+       /* worldtest.robin.affiche();
         worldtest.peon.affiche();
         worldtest.bugs.affiche();
         System.out.println("affichage de wolfie");

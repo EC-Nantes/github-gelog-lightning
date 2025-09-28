@@ -16,6 +16,7 @@ public class Creature {
     private int pageAtt;
     private int pagePar;
     private Point2D pos;
+    
 
 
 public Creature(){
@@ -91,25 +92,30 @@ public int getPtVie() {
     public void setPos(Point2D pos) {
         this.pos = pos;
     }
-    public void deplace(){
-        Random rand = new Random();
-        this.pos.setPosition(rand.nextInt(100), rand.nextInt(100));
-    }
+    
+    
     public void deplace(World monde){
+        monde.deplaceCreature(this);
         Random rand =new Random();
-        Point2D newpos=new Point2D(rand.nextInt(100),rand.nextInt(100));
+        Point2D newpos=new Point2D(rand.nextInt(3)-1,rand.nextInt(3)-1);
         if(!monde.estOccupee(newpos)){
         this.pos=newpos;}
         else{
                 System.out.println("Case deja occupe");
                 }}
     
-    public void deplaceNextCase() {
+    public void deplace() {
     Random rand = new Random();
-    int dx = rand.nextInt(3) - 1; 
-    int dy = rand.nextInt(3) - 1;
+    int dx;
+    int dy;
+    
+    do{
+    dx = rand.nextInt(3) - 1; 
+    dy = rand.nextInt(3) - 1;
     this.getPos().translate(dx, dy);
-}    
+}   while(dx!=0 && dy!=0);
+    }
+
     
     @Override
     public String toString(){
