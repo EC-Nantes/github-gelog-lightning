@@ -102,14 +102,15 @@ public int getPtVie() {
         this.pos=newpos;}
         else{
                 System.out.println("Case deja occupe");
-                }
+                }}
+    
     public void deplaceNextCase() {
     Random rand = new Random();
     int dx = rand.nextInt(3) - 1; 
     int dy = rand.nextInt(3) - 1;
     this.getPos().translate(dx, dy);
 }    
-    }
+    
     @Override
     public String toString(){
         String res="le point de vie est "+this.ptVie+"\n"+
@@ -122,7 +123,7 @@ public int getPtVie() {
     }
     public void affiche(){
         System.out.println(this);
-    }
+    }}
 
 
     
