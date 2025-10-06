@@ -2,150 +2,257 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.WoE;
-import java.util.Random;
+
+import java.util.*;
+
 /**
- *
+ * Représente le monde du jeu. Contient les personnages, les monstres et les objets.
+ * 
+ * <p>La classe {@code World} permet de générer aléatoirement un ensemble d'entités 
+ * (archers, guerriers, paysans, monstres, objets, etc.) sur une grille carrée. 
+ * Elle gère également la détection de collisions, la génération de noms uniques 
+ * et le déroulement d’un tour de jeu.</p>
+ * 
  * @author user
  */
-public class World{
-    Archer robin;
-    Paysan peon;
-    Lapin bugs;
-    Lapin bugs2;
-    Archer guillaumeT;
-    Guerrier grosBill;
-    Loup wolfie;
-    
-    Creature [] creatures;
-    
-    Epée sif;
-    PotionSoin diamond;
-    Objet[] objets;
-            
-    public World(){
-        robin= new Archer();
-        peon= new Paysan();
-        bugs= new Lapin();
-        bugs2= new Lapin();
-        guillaumeT= new Archer(robin);
-        grosBill= new Guerrier();
-        wolfie= new Loup();
-        sif=new Epée();
-        diamond= new PotionSoin();
-        objets = new Objet[]{sif, diamond};
-        creatures = new Creature[]{robin, peon, bugs, bugs2, guillaumeT, grosBill,wolfie};
+public class World {
+
+    /** Taille de la grille par défaut (50x50). */
+    public static final int TAILLE_PAR_DEFAUT = 50;
+
+    /** Liste des personnages présents dans le monde. */
+    protected ArrayList<Personnage> maListePers;
+
+    /** Liste des monstres présents dans le monde. */
+    protected ArrayList<Monstre> maListeMons;
+
+    /** Liste des objets (armes, potions, etc.) présents dans le monde. */
+    protected ArrayList<Objet> maListeobj;
+
+    /** Ensemble des noms déjà utilisés pour éviter les doublons. */
+    protected HashSet<String> nomsUtilises;
+
+    /**
+     * Constructeur par défaut. Initialise les listes et la structure du monde.
+     */
+    public World() {
+        maListePers = new ArrayList<>();
+        maListeMons = new ArrayList<>();
+        maListeobj = new ArrayList<>();
+        nomsUtilises = new HashSet<>();
     }
-        public void creerMondeAlea(){
-        Point2D p1, p2,p3,p4,p5,p6,p7,p8,p9;
-        Random rand =new Random();
-        do{
-            p1=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p2=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p3=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p4=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p5=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p6=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p7=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p8=new Point2D(rand.nextInt(100),rand.nextInt(100));
-            p9=new Point2D(rand.nextInt(100),rand.nextInt(100));
-        }while(p1.equals(p2) || p2.equals(p3) ||  p3.equals(p4) ||  p4.equals(p5) ||  p5.equals(p6) ||  p6.equals(p7) ||  p7.equals(p8)  ||  p8.equals(p9) ||  p9.equals(p1) );
-        
-        robin.setPos(p1);
-        peon.setPos(p2);
-        bugs.setPos(p3);
-        bugs2.setPos(p4);
-        guillaumeT.setPos(p5);
-        grosBill.setPos(p6);
-        wolfie.setPos(p7);
-        sif.setPosition(p8);
-        diamond.setPosition(p8);
-    }
-    public boolean estOccupee(Point2D p){
-    if(robin.getPos().equals(p) || peon.getPos().equals(p) || bugs.getPos().equals(p) || bugs2.getPos().equals(p) || guillaumeT.getPos().equals(p) || grosBill.getPos().equals(p) || wolfie.getPos().equals(p)) 
-    {return true;}
-    else 
-    {return false;}
-    }    
-   
-    public void deplaceCreature(Creature c) {
-    c.deplace();
-    for (Objet o : objets) {
-        if (o.getPosition().equals(c.getPos())) {
-            o.utiliserObjet(c);
-            
+
+    /**
+     * Crée un monde aléatoire avec un nombre défini de personnages, monstres et objets.
+     *
+     * @param nbArcher   nombre d'archers à générer
+     * @param nbPaysan   nombre de paysans à générer
+     * @param nbLapin    nombre de lapins (monstres) à générer
+     * @param nbGuerrier nombre de guerriers à générer
+     * @param nbLoup     nombre de loups (monstres) à générer
+     * @param nbPotion   nombre de potions de soin à générer
+     * @param nbEpee     nombre d'épées à générer
+     */
+    public void creerMondeAlea(int nbArcher, int nbPaysan, int nbLapin,
+                               int nbGuerrier, int nbLoup, int nbPotion, int nbEpee) {
+        Random rand = new Random();
+        Point2D newpos;
+
+        // Archers
+        for (int i = 0; i < nbArcher; i++) {
+            Archer a = new Archer();
+            definirStatsAlea(a);
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            a.setPos(newpos);
+            maListePers.add(a);
+        }
+
+        // Paysans
+        for (int i = 0; i < nbPaysan; i++) {
+            Paysan p = new Paysan();
+            definirStatsAlea(p);
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            p.setPos(newpos);
+            maListePers.add(p);
+        }
+
+        // Lapins
+        for (int i = 0; i < nbLapin; i++) {
+            Lapin l = new Lapin();
+            definirStatsAlea(l);
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            l.setPos(newpos);
+            maListeMons.add(l);
+        }
+
+        // Guerriers
+        for (int i = 0; i < nbGuerrier; i++) {
+            Guerrier g = new Guerrier();
+            definirStatsAlea(g);
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            g.setPos(newpos);
+            maListePers.add(g);
+        }
+
+        // Loups
+        for (int i = 0; i < nbLoup; i++) {
+            Loup l = new Loup();
+            definirStatsAlea(l);
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            l.setPos(newpos);
+            maListeMons.add(l);
+        }
+
+        // Potions
+        for (int i = 0; i < nbPotion; i++) {
+            String nomPotion = "Potion" + (i + 1);
+            int ptVieRendus = 10 + rand.nextInt(41); // 10 à 50 PV
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            PotionSoin p = new PotionSoin(nomPotion, newpos, ptVieRendus);
+            maListeobj.add(p);
+        }
+
+        // Épées
+        for (int i = 0; i < nbEpee; i++) {
+            String nomEpee = "Epée" + (i + 1);
+            int bonusAtt = 5 + rand.nextInt(16); // 5 à 20
+            do {
+                newpos = new Point2D(rand.nextInt(TAILLE_PAR_DEFAUT), rand.nextInt(TAILLE_PAR_DEFAUT));
+            } while (estOccupee(newpos));
+            Epée e = new Epée(nomEpee, newpos, bonusAtt);
+            maListeobj.add(e);
         }
     }
-    }
-    
-       public void tourDeJeu(){
-        for(Creature c: creatures){
-            c.deplace(this);
-}
-    for(int i=0;i<3;i++){
-       for(int j=0;j<3;j++){
-           if(i!=j){
-         Creature c=creatures[i];
-         Creature c2=creatures[j];
-         if (c instanceof Archer) ((Archer) c).combattre(c2);
-         if (c instanceof Guerrier) ((Archer) c).combattre(c2);
-         if (c instanceof Loup) ((Archer) c).combattre(c2);
-           }
-         
-    }}}
-    
-    public void affiche(){
-        /*int monmonde[][]=new int[50][50];
-        for (int row=0; row<monmonde.length; row++){
-            for(int col=0; col< monmonde[row].length; col++){
-                if(monmonde[row][col]==)*/
-    System.out.println("=== Créatures ===");
-    System.out.println("Archer Robin : " + robin.getPos());
-    System.out.println("Paysan Peon : " + peon.getPos());
-    System.out.println("Lapin Bugs : " + bugs.getPos());
-    System.out.println("Lapin Bugs2 : " + bugs2.getPos());
-    System.out.println("Archer GuillaumeT : " + guillaumeT.getPos());
-    System.out.println("Guerrier GrosBill : " + grosBill.getPos());
-    System.out.println("Loup Wolfie : " + wolfie.getPos());
 
-    System.out.println("=== Objets ===");
-    for (Objet o : objets) {
-        System.out.println(o.getNom() + " : " + o.getPosition());
+    /**
+     * Définit aléatoirement les statistiques de base d'une créature.
+     *
+     * @param c la créature à initialiser
+     */
+    private void definirStatsAlea(Creature c) {
+        Random rand = new Random();
+        c.setPtVie(50 + rand.nextInt(51));
+        c.setDegAtt(10 + rand.nextInt(21));
+        c.setPtPar(5 + rand.nextInt(16));
+        c.setPageAtt(5 + rand.nextInt(16));
+        c.setPagePar(5 + rand.nextInt(16));
+
+        if (c instanceof Personnage) {
+            ((Personnage) c).setDistAttMax(1 + rand.nextInt(10));
+            ((Personnage) c).setNom(genererNomUnique());
+        }
     }
-}        
+
+    /**
+     * Génère un nom unique composé de lettres aléatoires.
+     *
+     * @return un nom non encore utilisé
+     */
+    private String genererNomUnique() {
+        Random rand = new Random();
+        String nom;
+        do {
+            int longueur = 3 + rand.nextInt(5);
+            StringBuilder nomBuilder = new StringBuilder();
+            for (int i = 0; i < longueur; i++) {
+                char lettre = (char) ('a' + rand.nextInt(26));
+                nomBuilder.append(lettre);
             }
-    
+            nom = nomBuilder.toString();
+        } while (nomsUtilises.contains(nom));
+        nomsUtilises.add(nom);
+        return nom;
+    }
 
-    
+    /**
+     * Vérifie si une position donnée est déjà occupée par une entité (personnage ou monstre).
+     *
+     * @param p la position à tester
+     * @return true si la case est occupée, false sinon
+     */
+    public boolean estOccupee(Point2D p) {
+        for (Personnage pers : maListePers) {
+            if (pers.getPos().equals(p)) return true;
+        }
+        for (Monstre mon : maListeMons) {
+            if (mon.getPos().equals(p)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Permet à une créature de chercher et utiliser un objet présent sur sa position.
+     *
+     * @param c la créature concernée
+     */
+    public void chercherObjet(Creature c) {
+    for (Objet o : maListeobj) { // Boucle for-each
+        if (o.getPosition().equals(c.getPos())) {
+            o.utiliserObjet(c);
+            System.out.println(o.getNom()+ " a ramassé ");
+            maListeobj.remove(o); 
+        }
+    }
+}
 
 
+    /**
+     * Effectue un tour de jeu :
+     * <ul>
+     *   <li>Déplace les personnages et monstres.</li>
+     *   <li>Déclenche les combats entre entités proches.</li>
+     * </ul>
+     */
+    public void tourDeJeu() {
+        for (Personnage p : maListePers) {
+            p.deplace(this);
+        }
 
+        for (Monstre m : maListeMons) {
+            m.deplace(this);
+        }
 
+        // Combats entre personnages (simplifié)
+        for (int i = 0; i < maListePers.size(); i++) {
+            Personnage p1 = maListePers.get(i);
+            for (int j = 0; j < maListePers.size(); j++) {
+                if (j != i) {
+                    Personnage p2 = maListePers.get(j);
+                    if (p1 instanceof Archer) {
+                        ((Archer) p1).combattre(p2);
+                    } else if (p1 instanceof Guerrier) {
+                        ((Guerrier) p1).combattre(p2);
+                    }
+                }
+            }
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Affiche les informations de toutes les entités du monde :
+     * personnages, monstres et objets.
+     */
+    public void affiche() {
+        for (Personnage p : maListePers) {
+            p.affiche();
+        }
+        for (Monstre m : maListeMons) {
+            m.affiche();
+        }
+        for (Objet o : maListeobj) {
+            o.affiche();
+        }
+    }
+}
