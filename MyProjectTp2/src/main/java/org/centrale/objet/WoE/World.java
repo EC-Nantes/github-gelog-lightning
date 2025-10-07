@@ -13,7 +13,7 @@ import java.util.*;
  * Elle gère également la détection de collisions, la génération de noms uniques 
  * et le déroulement d’un tour de jeu.</p>
  * 
- * @author user
+ * @author Imane
  */
 public class World {
 

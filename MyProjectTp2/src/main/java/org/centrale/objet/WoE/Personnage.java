@@ -18,7 +18,7 @@ package org.centrale.objet.WoE;
  *   <li>Les caractéristiques héritées : points de vie, dégâts, parade, etc.</li>
  * </ul>
  *
- * @author user
+ * @author Imane
  * @see Creature
  */
 public class Personnage extends Creature {

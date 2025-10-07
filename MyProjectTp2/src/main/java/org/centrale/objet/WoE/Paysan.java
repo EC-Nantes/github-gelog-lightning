@@ -19,7 +19,7 @@ package org.centrale.objet.WoE;
  *   <li>Ils héritent de tous les comportements de {@link Personnage}</li>
  * </ul>
  *
- * @author user
+ * @author Imane
  * @see Personnage
  * @see World
  */

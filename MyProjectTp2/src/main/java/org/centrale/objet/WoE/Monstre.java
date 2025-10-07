@@ -14,7 +14,7 @@ package org.centrale.objet.WoE;
  * <p>Les classes dérivées comme {@link Loup} ou {@link Lapin} implémentent des
  * comportements spécifiques (par exemple le combat ou la fuite).</p>
  * 
- * @author user
+ * @author Imane
  */
 public class Monstre extends Creature {
 

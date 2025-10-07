@@ -14,7 +14,7 @@ package org.centrale.objet.WoE;
  * <p>Ses caractéristiques sont généralement faibles comparées à celles des loups
  * ou des créatures jouables.</p>
  * 
- * @author user
+ * @author Imane
  */
 public class Lapin extends Monstre {
 

@@ -16,7 +16,7 @@ import java.util.Random;
  * <p>Le combat est probabiliste : chaque tentative dépend de la chance d’attaque
  * et de la chance de parade des deux créatures impliquées.</p>
  * 
- * @author user
+ * @author Imane
  */
 public class Loup extends Monstre {
 

@@ -11,7 +11,7 @@ package org.centrale.objet.WoE;
  * sont augmentés d'une certaine quantité déterminée par {@code ptVieRendus}.
  * </p>
  *
- * @author user
+ * @author Imane
  */
 public class PotionSoin extends Objet {
     

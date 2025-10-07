@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * 
- * @author user
+ * @author Imane
  */
 /**
  * Classe de test pour le projet "World of ECN".
@@ -71,7 +71,7 @@ public class TestWoE {
     public static void main(String[] args) {
         // Création du monde avec des entités aléatoires
         World monde = new World();
-        monde.creerMondeAlea(3, 4, 5, 2, 0, 1, 8);  
+        monde.creerMondeAlea(1, 1, 1, 2, 0, 1, 1);  
         monde.affiche();  // Affichage des entités du monde
         
         // Affichage des personnages
@@ -101,7 +101,6 @@ public class TestWoE {
         
         long sommeParIterator = totalPvParIterator(monde.maListePers);
         System.out.println("Total des points de vie des personnages (par itérateur) : " + sommeParIterator);
-
 
         // Exécution des tests de performance 
         TestPerformance.tester();  // Exécution de la méthode de test de performance

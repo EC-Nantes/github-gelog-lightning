@@ -17,7 +17,7 @@ import java.util.Random;
  * <p>Le système de combat repose sur des jets de dés aléatoires pour déterminer
  * la réussite de l’attaque et de la parade du défenseur.</p>
  *
- * @author user
+ * @author Imane
  * @see Personnage
  * @see Creature
  */

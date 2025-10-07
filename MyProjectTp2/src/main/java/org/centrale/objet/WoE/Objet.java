@@ -12,7 +12,7 @@ package org.centrale.objet.WoE;
  * sur une {@link Creature}.
  * </p>
  *
- * @author user
+ * @author Imane
  */
 public abstract class Objet {
 

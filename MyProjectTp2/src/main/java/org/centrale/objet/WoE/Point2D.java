@@ -15,7 +15,7 @@ package org.centrale.objet.WoE;
  * <p>Elle est notamment utilisée pour représenter la position des créatures et objets
  * dans le monde du jeu.</p>
  *
- * @author user
+ * @author Imane
  */
 public class Point2D {
 
